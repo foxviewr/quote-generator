@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+    container_name: db-postgres
+    volumes:
+      - ./.pgdata:/var/lib/postgresql/data
+    ports:
+      - '${DATABASE_PORT}:${DATABASE_PORT}'
+    networks:
+      - private
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    container_name: backend-nestjs
+    volumes:
+      - ./backend/:/backend/
+    environment:
+      - APP_PORT=${BACKEND_PORT}
+      - DATABASE_URL=${DATABASE_URL}
+    ports:
+      - ${BACKEND_PORT}:${BACKEND_PORT}
+    command: npm run docker:start:${ENV}
+    depends_on:
+      - db
+    networks:
+      - public
+      - private
+
+#
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    restart: always
+#    container_name: nest-pgadmin4
+#    environment:
+#      - PGADMIN_DEFAULT_EMAIL=admin@admin.admin
+#      - PGADMIN_DEFAULT_PASSWORD=459DqvVpmvFR
+#    ports:
+#      - '5050:80'
+#    depends_on:
+#      - db
+
+networks:
+  public:
+  private:
