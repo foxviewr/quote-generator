@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "docker:start:dev": "npx prisma migrate dev;npm run build;npm run start:dev",
+    "docker:start:dev": "npx prisma migrate deploy;npx prisma generate;npm run build;npm run start:dev",
     "docker:start:prod": "npx prisma migrate deploy;npx prisma generate;npm run build;npm run start:prod",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
