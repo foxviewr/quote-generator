@@ -1,0 +1,32 @@
+{
+  "name": "quote_generator_frontend",
+  "version": "0.0.1",
+  "description": "Quote Generator frontend",
+  "author": "Pedro Teles",
+  "url": "https://github.com/foxviewr/quote_generator",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "docker:start:dev": "npm i;next dev",
+    "docker:start:prod": "npm i;next build;next start",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.2.5"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5"
+  }
+}
