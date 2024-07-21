@@ -4,7 +4,10 @@ GREEN=\033[32m
 YELLOW=\033[33m
 NO_COLOR=\033[0m
 
-# commands
+# targets
+default:
+	@echo "> make [targets]"
+	@echo "${RED}Please specify a target. Check inside the ${YELLOW}./makefile${RED} for available targets.${NO_COLOR}"
 docker-install: .env
 	docker compose up db -d
 	docker compose up backend frontend --no-start
