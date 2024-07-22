@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { QuoteService } from '../../recycle/quote.service';
+import { QuoteService } from './quote.service';
 
 describe('QuoteService', () => {
   let service: QuoteService;

@@ -28,6 +28,19 @@ export class QuoteService {
             cursor,
             where,
             orderBy,
+            include: {
+                tags: {
+                    select: {
+                        tag: {
+                            select: {
+                                uuid: true,
+                                name: true,
+                                slug: true
+                            }
+                        }
+                    }
+                }
+            }
         });
     }
 

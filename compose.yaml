@@ -24,6 +24,8 @@ services:
     environment:
       - APP_PORT=${BACKEND_PORT}
       - DATABASE_URL=${DATABASE_URL}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - JWT_REFRESH_TOKEN_KEY=${JWT_REFRESH_TOKEN_KEY}
     ports:
       - ${BACKEND_PORT}:${BACKEND_PORT}
     command: npm run docker:start:${ENV}
@@ -39,14 +41,14 @@ services:
       dockerfile: Dockerfile
     container_name: frontend-nextjs
     volumes:
-      - ./frontend/:/frontend/\
+      - ./frontend/:/frontend/
     environment:
       - BACKEND_API_HOST=${BACKEND_HOST}
       - BACKEND_API_PORT=${BACKEND_PORT}
       - IS_BACKEND_DOCKER=1
     ports:
       - ${FRONTEND_PORT}:${FRONTEND_PORT}
-    command: npm run docker:start:${ENV} -- -p ${FRONTEND_PORT} --turbo
+    command: npm run docker:start:${ENV} -- -p ${FRONTEND_PORT}
     depends_on:
       - backend
     networks:
