@@ -1,12 +1,18 @@
+'use client'
 import headerNavLinks from '@/data/headerNavLinks'
 import Image from 'next/image'
-import Link from './Link'
+import Link from 'next/link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
+import UserHeaderButton from '@/components/UserHeaderButton'
+import { SessionProvider, useSession } from 'next-auth/react'
 
 const Header = () => {
+    const session = useSession()
+    console.log(session)
+
     return (
-        <header className="flex items-center justify-between py-10">
+        <header className={`flex items-center justify-${session.data?.user ? 'between' : 'center'} py-10`}>
             <div>
                 <Link href="/" aria-label="QuoteGenerator">
                     <div className="flex items-center justify-between">
@@ -19,28 +25,31 @@ const Header = () => {
                                 priority
                             />
                         </div>
-                        <div className="hidden h-6 text-2xl font-semibold sm:block">
+                        <div className="hidden h-6 text-2xl font-semibold sm:inline-block">
                             QuoteGenerator
                         </div>
                     </div>
                 </Link>
             </div>
-            <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
-                { headerNavLinks
-                    .filter((link) => link.href !== '/')
-                    .map((link) => (
-                        <Link
-                            key={ link.title }
-                            href={ link.href }
-                            className="hidden font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400
-              sm:block"
-                        >
-                            { link.title }
-                        </Link>
-                    )) }
-                <ThemeSwitch/>
-                <MobileNav/>
-            </div>
+            { session.data?.user && (
+                <div className="flex items-center space-x-4 leading-5 sm:space-x-6">
+                    {headerNavLinks
+                        .filter((link) => link.href !== '/')
+                        .map((link) => (
+                            <Link
+                                key={link.title}
+                                href={link.href}
+                                className="hidden font-medium text-gray-900 hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-400
+                  sm:block"
+                            >
+                                {link.title}
+                            </Link>
+                        ))}
+                    <UserHeaderButton />
+                    <ThemeSwitch />
+                    <MobileNav />
+                </div>
+            )}
         </header>
     )
 }

@@ -1,7 +1,7 @@
-import QuotesBlog from '@/components/quotes/QuotesBlog'
-import Link from '@/components/Link'
+import Link from 'next/link'
 import Tag from '@/components/Tag'
 import React from 'react'
+import { Tinos } from 'next/font/google'
 
 const formatDate = (date: string, locale = 'en-US') => {
     const options: Intl.DateTimeFormatOptions = {
@@ -11,6 +11,8 @@ const formatDate = (date: string, locale = 'en-US') => {
     }
     return new Date(date).toLocaleDateString(locale, options)
 }
+
+const tinos = Tinos({ subsets: ['latin'], weight: '400' })
 
 export default function QuotesList({ quotes, maxDisplay = 5 }: any): React.JSX.Element {
     return (
@@ -32,23 +34,19 @@ export default function QuotesList({ quotes, maxDisplay = 5 }: any): React.JSX.E
                                         </dl>
                                         <div className="space-y-5 xl:col-span-3">
                                             <div className="space-y-6">
+                                                <div
+                                                    className={`${ tinos.className } prose max-w-none text-2xl text-gray-500 dark:text-white`}>
+                                                    <em>&ldquo; {content} &rdquo;</em>
+                                                </div>
                                                 <div>
                                                     <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                                        <Link
-                                                            href={`/quotes/${uuid}`}
-                                                            className="text-gray-900 dark:text-gray-100"
-                                                        >
-                                                            {author}
-                                                        </Link>
+                                                        {author}
                                                     </h2>
                                                     <div className="flex flex-wrap">
-                                                        { tags.map((tag: any) => (
-                                                            <Tag key={ tag.tag.slug } text={ tag.tag.name } />
-                                                        )) }
+                                                        {tags.map((tag: any) => (
+                                                            <Tag key={tag.tag.slug} text={tag.tag.name} />
+                                                        ))}
                                                     </div>
-                                                </div>
-                                                <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                                                    {content}
                                                 </div>
                                             </div>
                                         </div>

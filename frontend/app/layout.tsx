@@ -1,11 +1,14 @@
+'use client'
+
 import '@/css/tailwind.css'
 import 'remark-github-blockquote-alert/alert.css'
 
-import { Space_Grotesk } from 'next/font/google'
+import { Merienda, Space_Grotesk } from 'next/font/google'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
 import { ThemeProviders } from '@/theme-providers'
+import { SessionProvider } from 'next-auth/react'
 
 const space_grotesk = Space_Grotesk({
     subsets: ['latin'],
@@ -14,12 +17,10 @@ const space_grotesk = Space_Grotesk({
 })
 
 export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
-    const basePath = process.env.BASE_PATH || ''
-
     return (
         <html
             lang="en"
-            className={`${space_grotesk.variable} scroll-smooth`}
+            className={`${ space_grotesk.variable } scroll-smooth`}
             suppressHydrationWarning
         >
             <link
@@ -52,11 +53,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }):
             <body className="bg-white pl-[calc(100vw-100%)] text-black antialiased dark:bg-gray-950 dark:text-white">
             <ThemeProviders>
                 <SectionContainer>
-                    <div className="flex h-screen flex-col justify-between font-sans">
-                        <Header />
-                        <main className="mb-auto">{children}</main>
-                        <Footer />
-                    </div>
+                    <SessionProvider>
+                        <div className="flex h-screen flex-col justify-between font-sans">
+                            <Header />
+                            <main className="mb-auto">{children}</main>
+                            <Footer />
+                        </div>
+                    </SessionProvider>
                 </SectionContainer>
             </ThemeProviders>
             </body>

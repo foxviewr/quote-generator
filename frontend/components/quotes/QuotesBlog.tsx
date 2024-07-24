@@ -1,7 +1,8 @@
-import Link from '@/components/Link'
+import Link from 'next/link'
 import Tag from '@/components/Tag'
 import Pagination from '@/components/quotes/Pagination'
 import React from 'react'
+import { Tinos } from 'next/font/google'
 
 const formatDate = (date: string, locale = 'en-US') => {
     const options: Intl.DateTimeFormatOptions = {
@@ -11,6 +12,8 @@ const formatDate = (date: string, locale = 'en-US') => {
     }
     return new Date(date).toLocaleDateString(locale, options)
 }
+
+const tinos = Tinos({ subsets: ['latin'], weight: '400' })
 
 export default function QuotesBlog({ quotes, tags, pagination, maxPerPage }: any): React.JSX.Element {
     const quotesToDisplay = quotes.slice(
@@ -33,17 +36,17 @@ export default function QuotesBlog({ quotes, tags, pagination, maxPerPage }: any
                                 const { uuid, slug, name, _count } = tag
                                 return (
                                     <li key={uuid} className="my-3">
-                                        {pathname.split('/tags/')[1] === slug ? (
+                                        { pathname.split('/tags/')[1] === slug ? (
                                             <h3 className="inline px-3 py-2 text-sm font-bold uppercase text-primary-500">
-                                                {`${name} (${_count.quotes})`}
+                                                {`${ name } (${ _count.quotes })`}
                                             </h3>
                                         ) : (
                                             <Link
-                                                href={`/tags/${slug}`}
+                                                href={`/tags/${ slug }`}
                                                 className="px-3 py-2 text-sm font-medium uppercase text-gray-500 hover:text-primary-500 dark:text-gray-300 dark:hover:text-primary-500"
-                                                aria-label={`View posts tagged ${name}`}
+                                                aria-label={`View posts tagged ${ name }`}
                                             >
-                                                {`${name} (${_count.quotes})`}
+                                                {`${ name } (${ _count.quotes })`}
                                             </Link>
                                         )}
                                     </li>
@@ -57,29 +60,27 @@ export default function QuotesBlog({ quotes, tags, pagination, maxPerPage }: any
                         {displayQuotes.map((quote: any) => {
                             const { uuid, author, content, tags, createdAt } = quote
                             return (
-                                <li key={uuid} className="py-5">
+                                <li key={ uuid } className="py-5">
                                     <article className="flex flex-col space-y-2 xl:space-y-0">
                                         <dl>
                                             <dt className="sr-only">Generated on</dt>
                                             <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                                <time dateTime={createdAt}>{formatDate(createdAt, 'en-US')}</time>
+                                                <time dateTime={ createdAt }>{formatDate(createdAt, 'en-US')}</time>
                                             </dd>
                                         </dl>
-                                        <div className="space-y-3">
+                                        <div className="space-y-3 pt-2">
+                                            <div
+                                                className={`${tinos.className} prose max-w-none text-xl text-gray-500 dark:text-white`}>
+                                                <em>&ldquo; {content} &rdquo;</em>
+                                            </div>
                                             <div>
                                                 <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                                                    <Link href={`/${uuid}`}
-                                                          className="text-gray-900 dark:text-gray-100">
-                                                        {author}
-                                                    </Link>
+                                                    {author}
                                                 </h2>
                                                 <div className="flex flex-wrap">
                                                     {tags?.map((tag: any) => <Tag key={tag.tag.slug}
                                                                                   text={tag.tag.name} />)}
                                                 </div>
-                                            </div>
-                                            <div className="prose max-w-none text-gray-500 dark:text-gray-400">
-                                                {content}
                                             </div>
                                         </div>
                                     </article>
@@ -88,7 +89,7 @@ export default function QuotesBlog({ quotes, tags, pagination, maxPerPage }: any
                         })}
                     </ul>
                     {pagination && pagination.totalPages > 1 && (
-                        <Pagination currentPage={pagination.currentPage} totalPages={pagination.totalPages} />
+                        <Pagination currentPage={ pagination.currentPage } totalPages={ pagination.totalPages } />
                     )}
                 </div>
             </div>

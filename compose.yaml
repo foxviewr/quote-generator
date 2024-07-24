@@ -39,13 +39,15 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile
+      args:
+        - ENV=${ENV}
+        - BACKEND_API_HOST=${BACKEND_HOST}
+        - BACKEND_API_PORT=${BACKEND_PORT}
+        - NEXTAUTH_SECRET=${JWT_SECRET_KEY}
+        - NEXTAUTH_URL=http://localhost:${FRONTEND_PORT}/api/auth
     container_name: frontend-nextjs
     volumes:
       - ./frontend/:/frontend/
-    environment:
-      - BACKEND_API_HOST=${BACKEND_HOST}
-      - BACKEND_API_PORT=${BACKEND_PORT}
-      - IS_BACKEND_DOCKER=1
     ports:
       - ${FRONTEND_PORT}:${FRONTEND_PORT}
     command: npm run docker:start:${ENV} -- -p ${FRONTEND_PORT}
