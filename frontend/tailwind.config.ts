@@ -19,6 +19,7 @@ const config: Config = {
             },
             fontFamily: {
                 sans: ['var(--font-space-grotesk)', ...fontFamily.sans],
+                serif: ['var(--font-space-tinos)', ...fontFamily.serif],
             },
             colors: {
                 primary: colors.pink,

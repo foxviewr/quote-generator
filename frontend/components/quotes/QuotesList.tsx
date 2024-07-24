@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Tag from '@/components/Tag'
+import Tag from '@/components/Tags'
 import React from 'react'
 import { Tinos } from 'next/font/google'
 
@@ -12,30 +12,32 @@ const formatDate = (date: string, locale = 'en-US') => {
     return new Date(date).toLocaleDateString(locale, options)
 }
 
-const tinos = Tinos({ subsets: ['latin'], weight: '400' })
-
 export default function QuotesList({ quotes, maxDisplay = 5 }: any): React.JSX.Element {
     return (
         <>
-            <div className="divide-y divide-gray-200 dark:divide-gray-700">
+            <div className={`${quotes.length ? 'divide-y divide-gray-200' : ''} dark:divide-gray-700`}>
+                {!quotes.length && (
+                    <div className="text-lg mt-5 text-gray-500 dark:text-gray-400">
+                        No quotes found
+                    </div>
+                )}
                 <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                    { !quotes.length && 'No quotes found.' }
-                    { quotes.slice(0, maxDisplay).map((quote: any) => {
-                        const { uuid, author, content, tags, createdAt, updatedAt } = quote
+                    {quotes.length &&quotes.slice(0, maxDisplay).map((quote: any) => {
+                        const { uuid, author, content, tags, createdAt } = quote
                         return (
-                            <li key={ uuid } className="py-12">
+                            <li key={uuid} className="py-12">
                                 <article>
                                     <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
                                         <dl>
                                             <dt className="text-base">Generated on</dt>
                                             <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                                <time dateTime={ createdAt }>{ formatDate(createdAt, 'en-US') }</time>
+                                                <time dateTime={createdAt}>{formatDate(createdAt, 'en-US')}</time>
                                             </dd>
                                         </dl>
                                         <div className="space-y-5 xl:col-span-3">
                                             <div className="space-y-6">
                                                 <div
-                                                    className={`${ tinos.className } prose max-w-none text-2xl text-gray-500 dark:text-white`}>
+                                                    className="font-serif prose max-w-none text-2xl text-gray-500 dark:text-white">
                                                     <em>&ldquo; {content} &rdquo;</em>
                                                 </div>
                                                 <div>

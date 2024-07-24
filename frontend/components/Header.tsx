@@ -1,15 +1,16 @@
 'use client'
+
 import headerNavLinks from '@/data/headerNavLinks'
 import Image from 'next/image'
 import Link from 'next/link'
 import MobileNav from './MobileNav'
 import ThemeSwitch from './ThemeSwitch'
 import UserHeaderButton from '@/components/UserHeaderButton'
-import { SessionProvider, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
+import React from 'react'
 
-const Header = () => {
+export function Header(): React.JSX.Element {
     const session = useSession()
-    console.log(session)
 
     return (
         <header className={`flex items-center justify-${session.data?.user ? 'between' : 'center'} py-10`}>

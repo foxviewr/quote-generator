@@ -1,11 +1,11 @@
 'use client'
 
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import Link from 'next/link'
 import headerNavLinks from '@/data/headerNavLinks'
 
-const MobileNav = () => {
+export function MobileNav(): React.JSX.Element {
     const [navShow, setNavShow] = useState(false)
 
     const onToggleNav = () => {

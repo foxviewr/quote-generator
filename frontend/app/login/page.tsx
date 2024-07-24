@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import React from 'react'
@@ -15,16 +16,16 @@ export default function LoginPage(): React.JSX.Element {
                 className="text-center"
                 key="credentials"
                 action={(formData) => {
-                    "use client";
+                    'use client'
                     signIn('credentials', {
                         callbackUrl: callbackUrl ?? '/',
                         username: formData.get('username'),
-                        password: formData.get('password')
-                    });
+                        password: formData.get('password'),
+                    })
                 }}
             >
                 <div className="flex flex-col">
-                    { error === 'CredentialsSignin' && (
+                    {error === 'CredentialsSignin' && (
                         <div className="flex-auto p-2.5">
                         <span
                             className="w-72 inline-block p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"

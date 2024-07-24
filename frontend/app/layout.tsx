@@ -3,7 +3,7 @@
 import '@/css/tailwind.css'
 import 'remark-github-blockquote-alert/alert.css'
 
-import { Merienda, Space_Grotesk } from 'next/font/google'
+import { Space_Grotesk, Tinos } from 'next/font/google'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
@@ -16,11 +16,18 @@ const space_grotesk = Space_Grotesk({
     variable: '--font-space-grotesk',
 })
 
+const tinos = Tinos({
+    subsets: ['latin'],
+    display: 'swap',
+    weight: '400',
+    variable: '--font-space-tinos',
+})
+
 export default function RootLayout({ children }: { children: React.ReactNode }): React.JSX.Element {
     return (
         <html
             lang="en"
-            className={`${ space_grotesk.variable } scroll-smooth`}
+            className={`${ space_grotesk.variable } ${ tinos.variable } scroll-smooth`}
             suppressHydrationWarning
         >
             <link

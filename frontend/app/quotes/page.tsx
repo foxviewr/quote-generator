@@ -1,28 +1,7 @@
 import React from "react";
 import Quotes from '@/components/quotes/Quotes'
 
-async function getAllQuotes(): Promise<any[]> {
-    const response = await fetch(
-        "http://host.docker.internal:3002/quotes/get/all",
-        { cache: "no-store" }
-    );
-    const data = await response.json();
-    return (data ? data : []) as any[];
-}
-
-async function getAllTags(): Promise<any[]> {
-    const response = await fetch(
-        "http://host.docker.internal:3002/tags/get/all",
-        { cache: "no-store" }
-    );
-    const data = await response.json();
-    return (data ? data : []) as any[];
-}
-
 export default async function QuotesBlog(): Promise<React.JSX.Element> {
-    const quotes = await getAllQuotes();
-    const tags = await getAllTags();
-
     return (
         <div>
             <div className="pb-6 pt-6">
@@ -30,7 +9,7 @@ export default async function QuotesBlog(): Promise<React.JSX.Element> {
                     Quotes
                 </h1>
             </div>
-            <Quotes quotes={quotes} view="blog" tags={tags} currentPage={1} />
+            <Quotes view="blog" currentPage={1} />
         </div>
     )
 }
