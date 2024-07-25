@@ -35,3 +35,7 @@ remove-all:
 	make docker-delete
 	make delete-dependencies
 	make delete-postgres-data
+reset-all:
+	make remove-all
+	make docker-install
+	make docker-start
