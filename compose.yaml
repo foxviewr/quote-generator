@@ -23,7 +23,7 @@ services:
       - ./backend/:/backend/
     environment:
       - APP_PORT=${BACKEND_PORT}
-      - DATABASE_URL=${DATABASE_URL}
+      - DATABASE_URL=postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:${DATABASE_PORT}/${DATABASE_NAME}?schema=public
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - JWT_REFRESH_TOKEN_KEY=${JWT_REFRESH_TOKEN_KEY}
     ports:
