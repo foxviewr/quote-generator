@@ -29,7 +29,7 @@ export default function QuotesBlog({ quotes, tags, pagination, maxPerPage }: any
                     className="hidden h-full max-h-screen min-w-[280px] max-w-[280px] flex-wrap overflow-auto rounded bg-gray-50 pt-5 shadow-md dark:bg-gray-900/70 dark:shadow-gray-800/40 sm:flex">
                     <div className="px-6 py-4">
                         {!tags.length && 'No tags found'}
-                        {tags.length && (<>
+                        {tags.length > 0 && (<>
                             <h3 className="font-bold uppercase text-primary-500">All Tags</h3>
                             <ul>
                                 {tags.map((tag: any) => {
@@ -63,7 +63,7 @@ export default function QuotesBlog({ quotes, tags, pagination, maxPerPage }: any
                         </div>
                     )}
                     <ul>
-                        {displayQuotes.length && displayQuotes.map((quote: any) => {
+                        {displayQuotes.map((quote: any) => {
                             const { uuid, author, content, tags, createdAt } = quote
                             return (
                                 <li key={ uuid } className="py-5">

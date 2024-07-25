@@ -11,7 +11,7 @@ const BLOG_MAX_PER_PAGE = 8
 export async function getAllQuotes(): Promise<any[]> {
     const session = await getServerSession(authOptions)
     const response = await fetch(
-        `${process.env.BACKEND_URL}/quotes/get/all`,
+        `${process.env.BACKEND_API_URL}/quotes/get/all`,
         {
             headers: {
                 authorization: `Bearer ${session?.backendTokens?.accessToken}`,
@@ -27,7 +27,7 @@ export async function getAllQuotes(): Promise<any[]> {
 export async function getQuotesByTagSlug(slug: string): Promise<any[]> {
     const session = await getServerSession(authOptions)
     const response = await fetch(
-        `${process.env.BACKEND_URL}/quotes/get/by-tag-slug/${slug}`,
+        `${process.env.BACKEND_API_URL}/quotes/get/by-tag-slug/${slug}`,
         {
             headers: {
                 authorization: `Bearer ${session?.backendTokens?.accessToken}`,

@@ -10,7 +10,7 @@ interface Props {
 export async function getAllTags(): Promise<any[]> {
     const session = await getServerSession(authOptions)
     const response = await fetch(
-        `${process.env.BACKEND_URL}/tags/get/all`,
+        `${process.env.BACKEND_API_URL}/tags/get/all`,
         {
             headers: {
                 authorization: `Bearer ${session?.backendTokens?.accessToken}`,
@@ -26,7 +26,7 @@ export async function getAllTags(): Promise<any[]> {
 export async function getTagBySlug(slug: string): Promise<any> {
     const session = await getServerSession(authOptions)
     const response = await fetch(
-        `${process.env.BACKEND_URL}/tags/get/by-slug/${slug}`,
+        `${process.env.BACKEND_API_URL}/tags/get/by-slug/${slug}`,
         {
             headers: {
                 authorization: `Bearer ${session?.backendTokens?.accessToken}`,

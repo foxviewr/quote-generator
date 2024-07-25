@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Tag from '@/components/Tags'
 import React from 'react'
-import { Tinos } from 'next/font/google'
 
 const formatDate = (date: string, locale = 'en-US') => {
     const options: Intl.DateTimeFormatOptions = {
@@ -15,14 +14,14 @@ const formatDate = (date: string, locale = 'en-US') => {
 export default function QuotesList({ quotes, maxDisplay = 5 }: any): React.JSX.Element {
     return (
         <>
-            <div className={`${quotes.length ? 'divide-y divide-gray-200' : ''} dark:divide-gray-700`}>
+            <div className={`${quotes.length > 0 && 'divide-y divide-gray-200'} dark:divide-gray-700`}>
                 {!quotes.length && (
                     <div className="text-lg mt-5 text-gray-500 dark:text-gray-400">
                         No quotes found
                     </div>
                 )}
                 <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {quotes.length &&quotes.slice(0, maxDisplay).map((quote: any) => {
+                    {quotes.slice(0, maxDisplay).map((quote: any) => {
                         const { uuid, author, content, tags, createdAt } = quote
                         return (
                             <li key={uuid} className="py-12">
