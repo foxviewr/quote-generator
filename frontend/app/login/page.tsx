@@ -2,12 +2,13 @@
 
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 
 export default function LoginPage(): React.JSX.Element {
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl')
     const error = searchParams.get('error')
+    const [loading, setLoading] = useState(false as boolean)
 
     return (
         <div>
@@ -17,6 +18,7 @@ export default function LoginPage(): React.JSX.Element {
                 key="credentials"
                 action={(formData) => {
                     'use client'
+                    setLoading(true)
                     signIn('credentials', {
                         callbackUrl: callbackUrl ?? '/',
                         username: formData.get('username'),
@@ -66,17 +68,27 @@ export default function LoginPage(): React.JSX.Element {
                 <div className="flex mt-4">
                     <div className="p-2.5 flex-auto rounded-md shadow-sm">
                         <button
-                            className="bg-primary-500 w-72 rounded-md py-2 px-4 font-medium text-white hover:bg-primary-700 dark:hover:bg-primary-400 focus:ring-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black"
+                            className="bg-primary-500 w-72 h-10 rounded-md py-2 px-4 font-medium text-white hover:bg-primary-700 dark:hover:bg-primary-400 focus:ring-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black"
                             type="submit"
+                            disabled={loading}
                         >
-                            Login
+                            {!loading && 'Login'}
+                            {(loading) && (
+                                <div className="flex space-x-2 justify-center items-center">
+                                    <span className="sr-only">Loading...</span>
+                                    <div
+                                        className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                    <div
+                                        className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                    <div className="h-2 w-2 bg-white rounded-full animate-bounce"></div>
+                                </div>
+                            )}
                         </button>
                     </div>
                 </div>
                 <div className="flex text-center">
                     <div className="flex-auto pt-2 sm:w-96">
-                        Register a new account <a href="/signup"
-                                                  className="text-primary-600 hover:underline dark:text-primary-500">here</a>.
+                        Register a new account <a href="/signup" className="text-primary-600 hover:underline dark:text-primary-500">here</a>.
                     </div>
                 </div>
             </form>

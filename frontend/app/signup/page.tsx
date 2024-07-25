@@ -7,6 +7,7 @@ const SignupPage = () => {
     const register = async (event: FormEvent<HTMLFormElement>) => {
         setError(null)
         setSuccess(null)
+        setLoading(true)
         event.preventDefault()
         const res = await fetch('http://localhost:3002/auth/register', {
             method: 'POST',
@@ -25,6 +26,7 @@ const SignupPage = () => {
 
         if (error) {
             setError({ message: data.error + ': ' + data.message })
+            setLoading(false)
             return
         }
 
@@ -32,17 +34,17 @@ const SignupPage = () => {
 
         await new Promise((r) => setTimeout(r, 3000))
         router.push('/api/auth/signin')
+        setLoading(false)
     }
 
     const router = useRouter()
     const [error, setError] = useState(null as { message: string } | null)
     const [success, setSuccess] = useState(null as { message: string } | null)
-    const [loading, setLoading] = useState(null as { message: string } | null)
+    const [loading, setLoading] = useState(false as boolean)
 
     return (
         <div>
-            <div className="pb-6 text-lg text-center font-semibold text-gray-800 dark:text-gray-100">Register a new
-                account
+            <div className="pb-6 text-lg text-center font-semibold text-gray-800 dark:text-gray-100">Register a new account
             </div>
             <form className="text-center" onSubmit={register}>
                 <div className="flex flex-col">
@@ -92,29 +94,31 @@ const SignupPage = () => {
                 <div className="flex mt-4">
                     <div className="p-2.5 flex-auto rounded-md shadow-sm">
                         <button
-                            className="bg-primary-500 w-72 rounded-md py-2 px-4 font-medium text-white hover:bg-primary-700 dark:hover:bg-primary-400 focus:ring-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black"
+                            className="bg-primary-500 w-72 h-10 rounded-md py-2 px-4 font-medium text-white hover:bg-primary-700 dark:hover:bg-primary-400 focus:ring-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black"
                             type="submit"
+                            disabled={success !== null || loading}
                         >
-                            Sign-up
+                            {!loading && !success && 'Sign-up'}
+                            {(loading || success) && (
+                                <div className="flex space-x-2 justify-center items-center">
+                                    <span className="sr-only">Loading...</span>
+                                    <div
+                                        className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                                    <div
+                                        className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                                    <div className="h-2 w-2 bg-white rounded-full animate-bounce"></div>
+                                </div>
+                            )}
                         </button>
                     </div>
                 </div>
             </form>
-            {
-                error && (
-                    <div className="flex text-center">
-                        <div className="flex-auto pt-2 text-sm text-red-500 dark:text-red-400 sm:w-96">{error.message}</div>
-                    </div>
-                )
-            }
-            {
-                success && (
-                    <div className="flex text-center">
-                        <div
-                            className="flex-auto pt-2 text-sm text-green-400 dark:text-green-300 sm:w-96">{success.message}</div>
-                    </div>
-                )
-            }
+            <div className="flex text-center">
+                <div className={`flex-auto pt-2 text-sm ${error && 'text-red-500 dark:text-red-400'} ${success && 'text-green-400 dark:text-green-300'} sm:w-96`}>
+                    {error && error.message}
+                    {success && success.message}
+                </div>
+            </div>
         </div>
     )
 }
