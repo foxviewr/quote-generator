@@ -52,7 +52,7 @@ export default function GenerateNewQuote(): React.JSX.Element {
                     <Button loading={!!loading} text="Generate new quote" onClick={() => generate()} />
                 </div>
                 <div
-                    className={`py-2 px-0 text-sm ${loading && 'text-gray-500 dark:text-white'} ${error && 'text-red-500 dark:text-red-400'} ${success && 'text-green-700 dark:text-green-300'} sm:py-2 sm:px-4`}>
+                    className={`py-2 px-0 text-sm ${loading && !success && 'text-gray-500 dark:text-white'} ${error && 'text-red-500 dark:text-red-400'} ${success && 'text-green-700 dark:text-green-300'} sm:py-2 sm:px-4`}>
                     {loading && !success && loading.message}
                     {error && error.message}
                     {success && success.message}
