@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Tag from '@/components/Tags'
 import React from 'react'
+import siteMetadata from '@/data/siteMetadata'
 
 const formatDate = (date: string, locale = 'en-US') => {
     const options: Intl.DateTimeFormatOptions = {
@@ -30,7 +31,7 @@ export default function QuotesList({ quotes, maxDisplay = 5 }: any): React.JSX.E
                                         <dl>
                                             <dt className="text-base">Generated on</dt>
                                             <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                                                <time dateTime={createdAt}>{formatDate(createdAt, 'en-US')}</time>
+                                                <time dateTime={createdAt}>{formatDate(createdAt, siteMetadata.locale)}</time>
                                             </dd>
                                         </dl>
                                         <div className="space-y-5 xl:col-span-3">

@@ -24,7 +24,7 @@ export default function GenerateNewQuote(): React.JSX.Element {
             },
         )
 
-        const error = !res.ok
+        const error = res.ok
         if (error) {
             setLoading(null)
             setError({ message: 'Something went wrong. Please try again.' })
@@ -47,12 +47,12 @@ export default function GenerateNewQuote(): React.JSX.Element {
 
     return (
         <>
-            <div className="flex">
-                <div className="flex">
+            <div className="flex flex-col sm:flex-row">
+                <div>
                     <Button loading={!!loading} text="Generate new quote" onClick={() => generate()} />
                 </div>
                 <div
-                    className={`flex py-2 px-4 text-sm ${loading && 'text-white'} ${error && 'text-red-500 dark:text-red-400'} ${success && 'text-green-400 dark:text-green-300'} sm:w-96`}>
+                    className={`py-2 px-0 text-sm ${loading && 'text-gray-500 dark:text-white'} ${error && 'text-red-500 dark:text-red-400'} ${success && 'text-green-700 dark:text-green-300'} sm:py-2 sm:px-4`}>
                     {loading && !success && loading.message}
                     {error && error.message}
                     {success && success.message}

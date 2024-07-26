@@ -53,8 +53,8 @@ export default function LoginPage(): React.JSX.Element {
                                autoComplete="current-password" required />
                     </div>
                 </div>
-                <div className="flex mt-4">
-                    <div className="p-2.5 flex-auto rounded-md shadow-sm">
+                <div className="flex">
+                    <div className="p-2.5 flex-auto rounded-md">
                         <Button loading={loading} text="Login"></Button>
                     </div>
                 </div>

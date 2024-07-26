@@ -7,7 +7,7 @@ import { Space_Grotesk, Tinos } from 'next/font/google'
 import Header from '@/components/Header'
 import SectionContainer from '@/components/SectionContainer'
 import Footer from '@/components/Footer'
-import { ThemeProviders } from '@/theme-providers'
+import { ThemeProviders } from '@/app/theme-providers'
 import { SessionProvider } from 'next-auth/react'
 
 const space_grotesk = Space_Grotesk({

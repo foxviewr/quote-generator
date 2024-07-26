@@ -9,6 +9,7 @@ const config: Config = {
         './pages/**/*.{js,ts,tsx}',
         './components/**/*.{js,ts,tsx}',
     ],
+    darkMode: 'class',
     theme: {
         extend: {
             lineHeight: {
@@ -22,7 +23,7 @@ const config: Config = {
                 serif: ['var(--font-space-tinos)', ...fontFamily.serif],
             },
             colors: {
-                primary: colors.pink,
+                primary: colors.cyan,
                 gray: colors.gray,
             },
             typography: ({ theme }: any) => ({

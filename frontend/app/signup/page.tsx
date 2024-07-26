@@ -63,15 +63,15 @@ export default function SignupPage(): React.JSX.Element {
                                autoComplete="new-password" required />
                     </div>
                 </div>
-                <div className="flex mt-4">
-                    <div className="p-2.5 flex-auto rounded-md shadow-sm">
+                <div className="flex">
+                    <div className="p-2.5 flex-auto rounded-md">
                         <Button loading={loading} text="Sign-up"></Button>
                     </div>
                 </div>
             </form>
             <div className="flex text-center">
                 <div
-                    className={`flex-auto pt-2 text-sm ${error && 'text-red-500 dark:text-red-400'} ${success && 'text-green-400 dark:text-green-300'} sm:w-96`}>
+                    className={`flex-auto pt-2 text-sm ${error && 'text-red-500 dark:text-red-400'} ${success && 'text-green-700 dark:text-green-300'} sm:w-96`}>
                     {error && error.message}
                     {success && success.message}
                 </div>
