@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
 import Button from '@/components/Button'
+import Input from '@/components/Input'
 
 export default function LoginPage(): React.JSX.Element {
 
@@ -44,32 +45,12 @@ export default function LoginPage(): React.JSX.Element {
                         </div>
                     )}
                     <div className="flex-auto p-2.5">
-                        <label htmlFor="name-input">
-                            <span className="sr-only">Email address</span>
-                            <input
-                                autoComplete="email"
-                                className="focus:ring-primary-600 w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black"
-                                id="username-input"
-                                name="username"
-                                placeholder="Your email address"
-                                type="email"
-                                required
-                            />
-                        </label>
+                        <Input name="email" title="Email address" type="email" placeholder="Your email address"
+                               autoComplete="email" required />
                     </div>
                     <div className="flex-auto p-2.5">
-                        <label htmlFor="password-input">
-                            <span className="sr-only">Password</span>
-                            <input
-                                autoComplete="new-password"
-                                className="focus:ring-primary-600 w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black"
-                                id="password-input"
-                                name="password"
-                                placeholder="Your password"
-                                type="password"
-                                required
-                            />
-                        </label>
+                        <Input name="password" title="Password" type="password" placeholder="Your password"
+                               autoComplete="current-password" required />
                     </div>
                 </div>
                 <div className="flex mt-4">
@@ -79,7 +60,8 @@ export default function LoginPage(): React.JSX.Element {
                 </div>
                 <div className="flex text-center">
                     <div className="flex-auto pt-2 sm:w-96">
-                        Register a new account <a href="/signup" className="text-primary-600 hover:underline dark:text-primary-500">here</a>.
+                        Register a new account <a href="/signup"
+                                                  className="text-primary-600 hover:underline dark:text-primary-500">here</a>.
                     </div>
                 </div>
             </form>

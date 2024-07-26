@@ -3,6 +3,7 @@
 import React, { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
+import Input from '@/components/Input'
 
 export default function SignupPage(): React.JSX.Element {
     const register = async (event: FormEvent<HTMLFormElement>) => {
@@ -50,46 +51,16 @@ export default function SignupPage(): React.JSX.Element {
             <form className="text-center" onSubmit={register}>
                 <div className="flex flex-col">
                     <div className="flex-auto p-2.5">
-                        <label htmlFor="name-input">
-                            <span className="sr-only">Name</span>
-                            <input
-                                autoComplete="name"
-                                className="focus:ring-primary-600 w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black"
-                                id="name-input"
-                                name="name"
-                                placeholder="Your name"
-                                type="text"
-                                required
-                            />
-                        </label>
+                        <Input name="name" title="Name" type="text" placeholder="Your name" autoComplete="name"
+                               required />
                     </div>
                     <div className="flex-auto p-2.5">
-                        <label htmlFor="email-input">
-                            <span className="sr-only">Email address</span>
-                            <input
-                                autoComplete="email"
-                                className="focus:ring-primary-600 w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black"
-                                id="email-input"
-                                name="email"
-                                placeholder="Your email address"
-                                type="email"
-                                required
-                            />
-                        </label>
+                        <Input name="email" title="Email address" type="email" placeholder="Your email address"
+                               autoComplete="email" required />
                     </div>
                     <div className="flex-auto p-2.5">
-                        <label htmlFor="password-input">
-                            <span className="sr-only">Password</span>
-                            <input
-                                autoComplete="new-password"
-                                className="focus:ring-primary-600 w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 dark:bg-black"
-                                id="password-input"
-                                name="password"
-                                placeholder="Your password"
-                                type="password"
-                                required
-                            />
-                        </label>
+                        <Input name="password" title="Password" type="password" placeholder="Your password"
+                               autoComplete="new-password" required />
                     </div>
                 </div>
                 <div className="flex mt-4">
