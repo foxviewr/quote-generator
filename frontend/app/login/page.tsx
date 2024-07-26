@@ -45,7 +45,7 @@ export default function LoginPage(): React.JSX.Element {
                         </div>
                     )}
                     <div className="flex-auto p-2.5">
-                        <Input name="email" title="Email address" type="email" placeholder="Your email address"
+                        <Input name="username" title="Email address" type="email" placeholder="Your email address"
                                autoComplete="email" required />
                     </div>
                     <div className="flex-auto p-2.5">
