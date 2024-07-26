@@ -11,7 +11,7 @@ const EXPIRE_REFRESH_TOKEN = 60 * 60 * 24 * 7 // 7 days
 export class AuthService {
     constructor(
         private userService: UserService,
-        private jwtService: JwtService,
+        private jwtService: JwtService
     ) {}
 
     async login(dto: LoginDto) {
@@ -43,7 +43,7 @@ export class AuthService {
         const user = await this.userService.findByEmail(dto.username)
 
         if (user && (await compare(dto.password, user.password))) {
-            const { password, ...result } = user
+            const { ...result } = user
             return result
         }
         throw new UnauthorizedException()
