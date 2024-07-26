@@ -3,12 +3,27 @@
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
+import Button from '@/components/Button'
 
 export default function LoginPage(): React.JSX.Element {
+
+    const action = (formData: FormData) => {
+        setLoading(true)
+        login(formData)
+    }
+
+    const login = async (formData: FormData) => {
+        signIn('credentials', {
+            callbackUrl: callbackUrl ?? '/',
+            username: formData.get('username'),
+            password: formData.get('password'),
+        })
+    }
+
     const searchParams = useSearchParams()
     const callbackUrl = searchParams.get('callbackUrl')
     const error = searchParams.get('error')
-    const [loading, setLoading] = useState(false as boolean)
+    const [loading, setLoading] = useState<boolean>(false)
 
     return (
         <div>
@@ -16,15 +31,7 @@ export default function LoginPage(): React.JSX.Element {
             <form
                 className="text-center"
                 key="credentials"
-                action={(formData) => {
-                    'use client'
-                    setLoading(true)
-                    signIn('credentials', {
-                        callbackUrl: callbackUrl ?? '/',
-                        username: formData.get('username'),
-                        password: formData.get('password'),
-                    })
-                }}
+                action={action}
             >
                 <div className="flex flex-col">
                     {error === 'CredentialsSignin' && (
@@ -67,23 +74,7 @@ export default function LoginPage(): React.JSX.Element {
                 </div>
                 <div className="flex mt-4">
                     <div className="p-2.5 flex-auto rounded-md shadow-sm">
-                        <button
-                            className="bg-primary-500 w-72 h-10 rounded-md py-2 px-4 font-medium text-white hover:bg-primary-700 dark:hover:bg-primary-400 focus:ring-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 dark:ring-offset-black"
-                            type="submit"
-                            disabled={loading}
-                        >
-                            {!loading && 'Login'}
-                            {(loading) && (
-                                <div className="flex space-x-2 justify-center items-center">
-                                    <span className="sr-only">Loading...</span>
-                                    <div
-                                        className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                                    <div
-                                        className="h-2 w-2 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                                    <div className="h-2 w-2 bg-white rounded-full animate-bounce"></div>
-                                </div>
-                            )}
-                        </button>
+                        <Button loading={loading} text="Login"></Button>
                     </div>
                 </div>
                 <div className="flex text-center">
