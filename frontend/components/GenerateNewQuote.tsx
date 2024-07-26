@@ -24,7 +24,7 @@ export default function GenerateNewQuote(): React.JSX.Element {
             },
         )
 
-        const error = res.ok
+        const error = !res.ok
         if (error) {
             setLoading(null)
             setError({ message: 'Something went wrong. Please try again.' })
