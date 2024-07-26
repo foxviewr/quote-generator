@@ -39,3 +39,5 @@ The app is divided into 3 docker services:
 1. `db` this is a database container built with `postrgre`. The data is stored in the `.pgdata` folder in the project's root directory.
 2. `backend` this is a custom container built with `node.js` that serves as a backend API to deal with all the logic and connect with the `db` database container. Developed using the `nestjs` framework with `prisma` ORM.
 3. `frontend` this is a custom container built with `node.js` that serves as a frontend UI for the user and connects with the `backend` API container. Developed using `react` and the `nextjs` framework with `tailwind` css framework.
+
+The project's `makefile` has various targets that could be interesting for development. Check the `./makefile` file to view all available targets and what they do.
