@@ -47,21 +47,4 @@ export class QuoteService {
             data,
         })
     }
-
-    async updateQuote(params: {
-        where: Prisma.QuoteWhereUniqueInput
-        data: Prisma.QuoteUpdateInput
-    }): Promise<Quote> {
-        const { data, where } = params
-        return this.prisma.quote.update({
-            data,
-            where,
-        })
-    }
-
-    async deleteQuote(where: Prisma.QuoteWhereUniqueInput): Promise<Quote> {
-        return this.prisma.quote.delete({
-            where,
-        })
-    }
 }

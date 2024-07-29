@@ -1,4 +1,4 @@
-import { Controller, Get, Param, UseGuards } from '@nestjs/common'
+import { Controller, Get, Param, Req, UseGuards } from '@nestjs/common'
 import { QuoteService } from './quote.service'
 import { Quote as QuoteModel } from '@prisma/client'
 import { TagService } from '../tag/tag.service'
@@ -15,8 +15,15 @@ export class QuoteController {
 
     @UseGuards(JwtGuard)
     @Get('quotes/get/all')
-    async getQuotes(): Promise<QuoteModel[]> {
-        return await this.quoteService.quotes({ orderBy: { createdAt: 'desc' } })
+    async getQuotes(@Req() request: Request): Promise<QuoteModel[]> {
+        return await this.quoteService.quotes({
+            where: {
+                user: {
+                    is: { email: request['user'].username },
+                },
+            },
+            orderBy: { createdAt: 'desc' },
+        })
     }
 
     @UseGuards(JwtGuard)
@@ -27,13 +34,19 @@ export class QuoteController {
 
     @UseGuards(JwtGuard)
     @Get('quotes/get/by-tag-slug/:slug')
-    async getQuotesByTagSlug(@Param('slug') slug: string): Promise<QuoteModel[]> {
+    async getQuotesByTagSlug(
+        @Req() request: Request,
+        @Param('slug') slug: string
+    ): Promise<QuoteModel[]> {
         return this.quoteService.quotes({
             where: {
                 tags: {
                     some: {
                         tag: { slug: slug },
                     },
+                },
+                user: {
+                    is: { email: request['user'].username },
                 },
             },
             orderBy: { createdAt: 'desc' },
@@ -42,7 +55,7 @@ export class QuoteController {
 
     @UseGuards(JwtGuard)
     @Get('quotes/generate')
-    async getNewQuote(): Promise<QuoteModel[]> {
+    async getNewQuote(@Req() request: Request): Promise<QuoteModel[]> {
         const response = await axios({
             url: 'https://api.quotable.io/quotes/random?limit=1',
             method: 'get',
@@ -78,9 +91,9 @@ export class QuoteController {
                 external_id: quoteData._id,
                 author: quoteData.author,
                 content: quoteData.content,
-                authorSlug: quoteData.authorSlug,
                 length: quoteData.length,
                 tags: { create: tags },
+                user: { connect: { email: request['user'].username } },
             })
 
             quotes.push({ ...quote, tags: tagsNames })
