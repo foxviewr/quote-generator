@@ -5,6 +5,12 @@ The following project named **Quote Generator** is a simple app that generates r
 ## Getting Started
 Make sure you have **docker** installed in your computer. I recommend installing the [Docker Desktop](https://www.docker.com/products/docker-desktop/) app which includes **docker** and offers a user interface to easily manage your docker.
 
+Edit your hosts file and add the following line:
+```
+127.0.0.1 host.docker.internal
+```
+This will be essential for the frontend to communicate correctly via the client with its internal configuration.
+
 Clone the project repo from GitHub:
 ```bash
 git clone git@github.com:foxviewr/quote-generator.git
