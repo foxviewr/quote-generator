@@ -5,7 +5,7 @@ The following project named **Quote Generator** is a simple app that generates r
 ## Getting Started
 Make sure you have **docker** installed in your computer. I recommend installing the [Docker Desktop](https://www.docker.com/products/docker-desktop/) app which includes **docker** and offers a user interface to easily manage your docker.
 
-Edit your hosts file and add the following line:
+Edit your hosts file (you can find it in `/etc/hosts` on a MacOS or Linux, or in `C:\Windows\System32\drivers\etc\hosts` on Windows) and add the following line:
 ```
 127.0.0.1 host.docker.internal
 ```
