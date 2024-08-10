@@ -16,7 +16,7 @@ docker-install: .env
 docker-start: .env
 	docker compose up
 docker-stop:
-	docker compose down
+	docker compose stop
 docker-delete:
 	docker compose rm -s -f -v db
 	docker rmi postgres
