@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, UseGuards, Logger } from '@nestjs/common'
+import { Controller, Get, Param, Req, UseGuards, Logger, HttpException } from '@nestjs/common'
 import { QuoteService } from './quote.service'
 import { Quote as QuoteModel } from '@prisma/client'
 import { TagService } from '../tag/tag.service'
@@ -104,7 +104,7 @@ export class QuoteController {
             return quotes
         } catch (error) {
             logger.error(`Failed to fetch quote: ${error.message}`)
-            throw error
+            throw new HttpException(`Failed to fetch quote: ${error.message}`, 500)
         }
     }
 }

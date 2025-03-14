@@ -3,6 +3,7 @@
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
+import { validateEmail } from '@/utils/validation'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 

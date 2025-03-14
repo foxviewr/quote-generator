@@ -3,6 +3,7 @@
 import React, { FormEvent, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
+import { validateEmail, validatePassword } from '@/utils/validation'
 import Input from '@/components/Input'
 
 export default function SignupPage(): React.JSX.Element {
@@ -11,12 +12,24 @@ export default function SignupPage(): React.JSX.Element {
         setSuccess(null)
         setLoading(true)
         event.preventDefault()
+
+        const name = event.currentTarget['name-input'].value
+        const email = event.currentTarget['email-input'].value
+        const password = event.currentTarget['password-input'].value
+
+        // Validate user input
+        if (!name || !validateEmail(email) || !validatePassword(password)) {
+            setError({ message: 'Please provide valid input.' })
+            setLoading(false)
+            return
+        }
+
         const res = await fetch(`${process.env.BACKEND_API_URL}/auth/register`, {
             method: 'POST',
             body: JSON.stringify({
-                name: event.currentTarget['name-input'].value,
-                email: event.currentTarget['email-input'].value,
-                password: event.currentTarget['password-input'].value,
+                name: name,
+                email: email,
+                password: password,
             }),
             headers: {
                 'Content-Type': 'application/json',

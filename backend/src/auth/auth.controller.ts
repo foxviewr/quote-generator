@@ -3,6 +3,7 @@ import { CreateUserDto } from 'src/user/dto/user.dto'
 import { UserService } from 'src/user/user.service'
 import { LoginDto } from './dto/auth.dto'
 import { AuthService } from './auth.service'
+import { Validate } from 'class-validator'
 import { RefreshJwtGuard } from './guards/refresh.guard'
 
 @Controller('auth')
