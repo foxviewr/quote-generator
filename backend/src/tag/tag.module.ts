@@ -9,5 +9,6 @@ import { QuoteService } from '../quote/quote.service'
     imports: [PrismaModule],
     controllers: [TagController],
     providers: [TagService, QuoteService, JwtService],
+    exports: [TagService], // Exporting TagService for use in other modules
 })
 export class TagModule {}
