@@ -1,4 +1,5 @@
 .pgdata/
 .idea/
+.codebuddy/
 .env
 .DS_Store
