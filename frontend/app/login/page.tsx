@@ -6,6 +6,7 @@ import React, { useState } from 'react'
 import Button from '@/components/Button'
 import Input from '@/components/Input'
 
+// Ensure to handle the form submission properly
 export default function LoginPage(): React.JSX.Element {
 
     const action = (formData: FormData) => {
@@ -14,7 +15,7 @@ export default function LoginPage(): React.JSX.Element {
     }
 
     const login = async (formData: FormData) => {
-        signIn('credentials', {
+        await signIn('credentials', {
             callbackUrl: callbackUrl ?? '/',
             username: formData.get('username'),
             password: formData.get('password'),
