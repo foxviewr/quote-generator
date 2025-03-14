@@ -6,6 +6,7 @@ import Button from '@/components/Button'
 import { validateEmail, validatePassword } from '@/utils/validation'
 import Input from '@/components/Input'
 
+// Ensure to handle the fetch error properly
 export default function SignupPage(): React.JSX.Element {
     const register = async (event: FormEvent<HTMLFormElement>) => {
         setError(null)
@@ -24,7 +25,7 @@ export default function SignupPage(): React.JSX.Element {
             return
         }
 
-        const res = await fetch(`${process.env.BACKEND_API_URL}/auth/register`, {
+        const response = await fetch(`${process.env.BACKEND_API_URL}/auth/register`, {
             method: 'POST',
             body: JSON.stringify({
                 name: name,
@@ -36,10 +37,10 @@ export default function SignupPage(): React.JSX.Element {
             },
         })
 
-        const error = !res.ok
-        const data = await res.json()
+        const isError = !response.ok
+        const data = await response.json()
 
-        if (error) {
+        if (isError) {
             setError({ message: data.error + ': ' + data.message })
             setLoading(false)
             return
@@ -47,7 +48,7 @@ export default function SignupPage(): React.JSX.Element {
 
         setSuccess({ message: 'Account created! 🎉 Redirecting to the login page...' })
 
-        await new Promise((r) => setTimeout(r, 3000))
+        await new Promise((resolve) => setTimeout(resolve, 3000))
         router.push('/api/auth/signin')
     }
 
